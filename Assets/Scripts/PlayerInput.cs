@@ -24,13 +24,13 @@ public class PlayerInput : MonoBehaviour
     {
         if (Input.GetButtonDown(ESC) == true)
         {
-            if (PauseButton == true)
+            if (gameManager.isPaused == true)
             {
-                PauseButton = false;
+                gameManager.UpdatePauseUI(false);
             }
             else
             {
-                PauseButton = true;
+                gameManager.UpdatePauseUI(true);
             }
         }
 

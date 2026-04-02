@@ -33,6 +33,7 @@ public class UiManager : MonoBehaviour
 
     public void GamePause(bool pause)
     {
+        Debug.Log(1);
         PauseUI.SetActive(pause);
     }
 

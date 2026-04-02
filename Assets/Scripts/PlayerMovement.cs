@@ -37,9 +37,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         animator.SetFloat(MoveHash, Math.Abs(input.MoveVertical) + Math.Abs(input.MoveHorizontal));
-
-        gameManager.UpdatePauseUI(input.PauseButton);
-
     }
 
     private void FixedUpdate()
