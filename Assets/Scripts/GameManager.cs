@@ -66,9 +66,4 @@ public class GameManager : MonoBehaviour
         Debug.Log(isPaused);
         uiManager.GamePause(false);
     }
-
-    public void VolumeControl(float volume)
-    {
-        Camera.main.GetComponent<AudioSource>().volume = volume;
-    }
 }
