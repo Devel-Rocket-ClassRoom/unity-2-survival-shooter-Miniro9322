@@ -47,6 +47,11 @@ public class Gun : MonoBehaviour
         if(Physics.Raycast(ray, out RaycastHit hit, maxDistance, enemy))
         {
             hitPosition = hit.point;
+            var target = hit.collider.GetComponent<IDamageable>();
+            if(target != null)
+            {
+                target.OnDamage(1f, hitPosition, hit.normal);
+            }
         }
         else
         {
@@ -71,7 +76,7 @@ public class Gun : MonoBehaviour
 
         yield return new WaitForSeconds(0.03f);
 
-        bulletLine .enabled = false ;
+        bulletLine.enabled = false ;
         shoot = null;
     }
 }

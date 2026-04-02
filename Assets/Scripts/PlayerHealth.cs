@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IDamageable
+public class PlayerHealth : LivingEntity
 {
-    public void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal)
+    public override void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal)
     {
         Debug.Log(damage);
     }
