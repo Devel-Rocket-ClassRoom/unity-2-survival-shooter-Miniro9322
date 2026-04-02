@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e50fe9275ba65a3459798c78d2c76f77, type: 3}
   m_Name: ElephantData
   m_EditorClassIdentifier: Assembly-CSharp::EntityData
-  Health: 5
-  Speed: 5
-  Damage: 1
+  Health: 10
+  Speed: 1.25
+  Damage: 2
+  attackRange: 3

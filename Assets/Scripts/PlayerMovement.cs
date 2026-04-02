@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput input;
     private float moveSpeed = 5f;
     private Animator animator;
-
+    [SerializeField]
+    private GameManager gameManager;
 
     private void Awake()
     {
@@ -27,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         animator.SetFloat(MoveHash, Math.Abs(input.MoveVertical) + Math.Abs(input.MoveHorizontal));
+
+        gameManager.UpdatePauseUI(input.PauseButton);
+
     }
 
     private void FixedUpdate()
@@ -38,6 +42,6 @@ public class PlayerMovement : MonoBehaviour
         playerRigidBody.MovePosition(playerRigidBody.position + horizontalDelta);
 
         
-        playerRigidBody.transform.LookAt(input.MoustPosition);
+        playerRigidBody.transform.LookAt(input.MousePosition);
     }
 }

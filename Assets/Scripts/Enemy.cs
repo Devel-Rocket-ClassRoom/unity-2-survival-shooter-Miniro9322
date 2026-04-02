@@ -18,7 +18,8 @@ public class Enemy : LivingEntity
     private static readonly int HasTarget = Animator.StringToHash("HasTarget");
     private static readonly int Death = Animator.StringToHash("Death");
 
-
+    [SerializeField]
+    private GameManager gameManager;
     private NavMeshAgent agent;
     [SerializeField]
     private float traceDistance = 10000f;
@@ -59,6 +60,7 @@ public class Enemy : LivingEntity
                     animator.SetTrigger(Death);
                     agent.isStopped = true;
                     enemyCollider.enabled = false;
+                    gameManager.AddScore(10);
                     Destroy(gameObject, 3f);
                     break;
             }
@@ -72,6 +74,7 @@ public class Enemy : LivingEntity
         enemyCollider = GetComponent<Collider>();
         Status = State.Idle;
         enemyCollider.enabled = true;
+        gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
     }
 
     private void OnEnable()
@@ -119,13 +122,16 @@ public class Enemy : LivingEntity
     {
         attackCoolTime += Time.deltaTime;
 
-        var player = target.GetComponent<IDamageable>();
+        var player = target.GetComponent<LivingEntity>();
         if (player != null)
         {
             if (attackCoolTime > attackCoolTimeInterval)
             {
-                player.OnDamage(damage, transform.position, -transform.forward);
-                attackCoolTime = 0f;
+                if(player.IsDeath == false)
+                {
+                    player.OnDamage(damage, transform.position, -transform.forward);
+                    attackCoolTime = 0f;
+                }
             }
         }
     }
@@ -157,7 +163,7 @@ public class Enemy : LivingEntity
         {
             Status = State.Death;
         }
-        if (Vector3.Distance(target.position, transform.position) < 1f)
+        if (Vector3.Distance(target.position, transform.position) < data.attackRange)
         {
             Status = State.Attack;
         }
@@ -189,8 +195,6 @@ public class Enemy : LivingEntity
         hitEffect.Play();
 
         base.OnDamage(damage, hitPosition, hitNormal);
-
-        Debug.Log("적 맞음");
     }
 
     private void StartSinking()
@@ -203,5 +207,17 @@ public class Enemy : LivingEntity
         transform.Translate(transform.position.x, transform.position.y - 0.1f, transform.position.z);
         
         yield return null;
+    }
+
+    public override void Die()
+    {
+        if(IsDeath == true)
+        {
+            return;
+        }
+
+        Status = State.Death;
+
+        base.Die();
     }
 }

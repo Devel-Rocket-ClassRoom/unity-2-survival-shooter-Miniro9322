@@ -11,9 +11,16 @@ public class EnemySpawner : MonoBehaviour
     private float spawnCoolTime = 0f;
     [SerializeField]
     private float maxRange = 1000f;
+    [SerializeField]
+    private GameManager gameManager;
 
     private void Update()
     {
+        if(gameManager.isGameEnd == true)
+        {
+            return;
+        }
+
         spawnCoolTime += Time.deltaTime;
 
         if(spawnCoolTime >= spawnCoolTimeInterval)

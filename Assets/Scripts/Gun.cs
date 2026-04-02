@@ -15,6 +15,8 @@ public class Gun : MonoBehaviour
     private LayerMask enemy;
 
     private Coroutine shoot;
+    private float shootCoolTimeInterval = 0.12f;
+    private float lastFireTime;
 
     private void Awake()
     {
@@ -24,21 +26,20 @@ public class Gun : MonoBehaviour
 
         bulletLine.positionCount = 2;
         bulletLine.enabled = false;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        lastFireTime = 0f;
     }
 
     public void Fire()
+    {
+        if(Time.time > lastFireTime + shootCoolTimeInterval)
+        {
+            lastFireTime = Time.time;
+
+            Shoot();
+        }
+    }
+
+    public void Shoot()
     {
         var hitPosition = Vector3.zero;
 

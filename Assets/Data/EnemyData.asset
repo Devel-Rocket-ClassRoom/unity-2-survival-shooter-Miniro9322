@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyData
   m_EditorClassIdentifier: Assembly-CSharp::EntityData
   Health: 5
-  Speed: 3
+  Speed: 2.5
   Damage: 1
