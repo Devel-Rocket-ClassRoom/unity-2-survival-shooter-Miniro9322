@@ -35,13 +35,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var verticlaDelta = input.MoveVertical * transform.forward * moveSpeed * Time.deltaTime;
-        playerRigidBody.MovePosition(playerRigidBody.position + verticlaDelta);
+        var move = new Vector3(input.MoveHorizontal, 0f, input.MoveVertical).normalized;
+        playerRigidBody.MovePosition(playerRigidBody.position + move * moveSpeed * Time.fixedDeltaTime);
 
-        var horizontalDelta = input.MoveHorizontal * transform.right * moveSpeed * Time.deltaTime;
-        playerRigidBody.MovePosition(playerRigidBody.position + horizontalDelta);
-
-        
-        playerRigidBody.transform.LookAt(input.MousePosition);
+        playerRigidBody.transform.rotation = Quaternion.LookRotation(input.MousePosition);
     }
 }

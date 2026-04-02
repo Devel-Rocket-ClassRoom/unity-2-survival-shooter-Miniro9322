@@ -24,7 +24,7 @@ public class PlayerInput : MonoBehaviour
         MoveHorizontal = Input.GetAxis(Horizontal);
         FireButton = Input.GetButton(Fire);
         
-        if(Input.GetButton(ESC) == true)
+        if(Input.GetButtonDown(ESC) == true)
         {
             if(PauseButton == true)
             {
@@ -40,11 +40,16 @@ public class PlayerInput : MonoBehaviour
     private void FixedUpdate()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out RaycastHit hit);
-        if(hit.point == null)
-        {
+        
+        if(Physics.Raycast(ray, out RaycastHit hit) == false)
+        {   
             return;
         }
-        MousePosition = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+        Vector3 target = hit.point;
+        target.y = transform.position.y;
+
+        Vector3 direction = target - transform.position;
+
+        MousePosition = direction;
     }
 }

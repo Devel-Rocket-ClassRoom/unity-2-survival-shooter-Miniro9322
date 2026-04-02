@@ -120,6 +120,12 @@ public class Enemy : LivingEntity
 
     private void UpdateAttack()
     {
+        if (Vector3.Distance(target.position, transform.position) > data.attackRange)
+        {
+            Status = State.Trace;
+            return;
+        }
+
         attackCoolTime += Time.deltaTime;
 
         var player = target.GetComponent<LivingEntity>();
@@ -204,9 +210,12 @@ public class Enemy : LivingEntity
 
     private IEnumerator Sinking()
     {
-        transform.Translate(transform.position.x, transform.position.y - 0.1f, transform.position.z);
-        
-        yield return null;
+        while (true)
+        {
+            transform.Translate(Vector3.down * 1f);
+
+            yield return null;
+        }
     }
 
     public override void Die()

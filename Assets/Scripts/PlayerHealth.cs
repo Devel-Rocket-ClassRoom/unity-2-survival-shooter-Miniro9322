@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : LivingEntity
 {
@@ -12,8 +14,10 @@ public class PlayerHealth : LivingEntity
     [SerializeField]
     private GameManager gameManager;
     [SerializeField]
-    private GameObject HitUi;
+    private Image hitImage;
     private float maxHealth;
+
+    private float flashTime = 0.5f;
 
     private void Awake()
     {
@@ -25,17 +29,32 @@ public class PlayerHealth : LivingEntity
 
         move.enabled = true;
         shoot.enabled = true;
-        HitUi.SetActive(false);
+        hitImage.color = new Color(1f, 0f, 0f, 0f);
     }
 
     public override void OnDamage(float damage, Vector3 hitPosition, Vector3 hitNormal)
     {
-        HitUi.SetActive(true);
-
         base.OnDamage(damage, hitPosition, hitNormal);
         gameManager.UpdateHpBar(Health / maxHealth);
-        
-        HitUi.SetActive(false);
+        if(Health / maxHealth > 0)
+        {
+            StartCoroutine(CoHitFlash());
+        }
+    }
+
+    private IEnumerator CoHitFlash()
+    {
+        float time = 0f;
+
+        while (time < flashTime)
+        {
+            float alpha = Mathf.Lerp(0.1f, 0f, time/flashTime);
+            hitImage.color = new Color(1f, 0f, 0f, alpha);
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+        hitImage.color = new Color(1f, 0f, 0f, 0f);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

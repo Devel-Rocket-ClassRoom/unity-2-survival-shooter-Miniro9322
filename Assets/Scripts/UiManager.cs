@@ -16,6 +16,9 @@ public class UiManager : MonoBehaviour
     private void OnEnable()
     {
         SetScoreText(0);
+        PauseUI.SetActive(false);
+        GameOverUi.SetActive(false);
+        HpBar.fillAmount = 1f;
     }
 
     public void SetScoreText(int score)
@@ -41,19 +44,8 @@ public class UiManager : MonoBehaviour
         PauseUI.SetActive(pause);
     }
 
-    public void GameOver(bool pause)
+    public void GameOver(bool death)
     {
-        GameOverUi.SetActive(pause);
-    }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GameOverUi.SetActive(death);
     }
 }
