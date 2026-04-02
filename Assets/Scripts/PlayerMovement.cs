@@ -9,8 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput input;
     private float moveSpeed = 5f;
     private Animator animator;
-    [SerializeField]
-    private LayerMask floor;
+
 
     private void Awake()
     {

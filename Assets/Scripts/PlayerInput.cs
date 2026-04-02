@@ -5,7 +5,8 @@ public class PlayerInput : MonoBehaviour
     private static readonly string Vertical = "Vertical";
     private static readonly string Horizontal = "Horizontal";
     private static readonly string Fire = "Fire1";
-
+    [SerializeField]
+    private LayerMask floor;
 
     public float MoveVertical {  get; private set; }
     public float MoveHorizontal { get; private set; }
