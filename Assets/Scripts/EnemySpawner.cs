@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        if(gameManager.isGameEnd == true)
+        if(gameManager.isGameEnd == true || gameManager.isPaused == true)
         {
             return;
         }

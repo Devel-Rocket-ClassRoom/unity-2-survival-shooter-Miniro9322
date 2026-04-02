@@ -33,14 +33,6 @@ public class UiManager : MonoBehaviour
 
     public void GamePause(bool pause)
     {
-        if(pause == true)
-        {
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
         PauseUI.SetActive(pause);
     }
 

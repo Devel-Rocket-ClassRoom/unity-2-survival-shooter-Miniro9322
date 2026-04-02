@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private UiManager uiManager;
     public bool isGameEnd {  get; private set; }
+    public bool isPaused { get; private set; }
+
     private float restartTime = 3f;
 
     private void Awake()
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdatePauseUI(bool pause)
     {
+        isPaused = pause;
         uiManager.GamePause(pause);
     }
 
@@ -59,7 +62,7 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        Debug.Log(1);
+        isPaused = false;
         uiManager.GamePause(false);
     }
 }

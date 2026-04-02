@@ -9,6 +9,8 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField]
     private LayerMask floor;
+    [SerializeField]
+    private GameManager gameManager;
 
     public float MoveVertical {  get; private set; }
     public float MoveHorizontal { get; private set; }
@@ -20,13 +22,9 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveVertical = Input.GetAxis(Vertical);
-        MoveHorizontal = Input.GetAxis(Horizontal);
-        FireButton = Input.GetButton(Fire);
-        
-        if(Input.GetButtonDown(ESC) == true)
+        if (Input.GetButtonDown(ESC) == true)
         {
-            if(PauseButton == true)
+            if (PauseButton == true)
             {
                 PauseButton = false;
             }
@@ -35,6 +33,15 @@ public class PlayerInput : MonoBehaviour
                 PauseButton = true;
             }
         }
+
+        if (gameManager.isPaused == true)
+        {
+            return;
+        }
+
+        MoveVertical = Input.GetAxis(Vertical);
+        MoveHorizontal = Input.GetAxis(Horizontal);
+        FireButton = Input.GetButton(Fire);
     }
 
     private void FixedUpdate()

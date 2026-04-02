@@ -27,6 +27,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if(gameManager.isPaused == true)
+        {
+            animator.speed = 0f;
+        }
+        else
+        {
+            animator.speed = 1f;
+        }
+
         animator.SetFloat(MoveHash, Math.Abs(input.MoveVertical) + Math.Abs(input.MoveHorizontal));
 
         gameManager.UpdatePauseUI(input.PauseButton);
@@ -35,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(gameManager.isPaused == true)
+        {
+            return;
+        }
+
         var move = new Vector3(input.MoveHorizontal, 0f, input.MoveVertical).normalized;
         playerRigidBody.MovePosition(playerRigidBody.position + move * moveSpeed * Time.fixedDeltaTime);
 
