@@ -79,7 +79,7 @@ public class Enemy : LivingEntity
         Status = State.Idle;
         enemyCollider.enabled = true;
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
-        audioSource = gameManager.GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
