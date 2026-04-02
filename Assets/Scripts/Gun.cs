@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Gun : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private ParticleSystem shootParticle;
 
+    [SerializeField]
+    private AudioClip shootClip;
+    private AudioSource audioSource;
     private float maxDistance = 50f;
 
     [SerializeField]
@@ -21,6 +25,7 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         bulletLine = GetComponent<LineRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
         shootParticle.transform.position = firePosition.position;
 
@@ -70,7 +75,8 @@ public class Gun : MonoBehaviour
     private IEnumerator CoShoot(Vector3 hit)
     {
         shootParticle.Play();
-        
+        audioSource.PlayOneShot(shootClip);
+
         bulletLine.SetPosition(0, firePosition.position);
         bulletLine.SetPosition(1, hit);
         bulletLine.enabled = true;

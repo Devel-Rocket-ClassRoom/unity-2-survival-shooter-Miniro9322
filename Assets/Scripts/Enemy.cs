@@ -19,6 +19,10 @@ public class Enemy : LivingEntity
     private static readonly int Death = Animator.StringToHash("Death");
 
     [SerializeField]
+    private AudioClip hitClip;
+    [SerializeField]
+    private AudioClip deathClip;
+    private AudioSource audioSource;
     private GameManager gameManager;
     private NavMeshAgent agent;
     [SerializeField]
@@ -75,6 +79,7 @@ public class Enemy : LivingEntity
         Status = State.Idle;
         enemyCollider.enabled = true;
         gameManager = GameObject.FindWithTag("GameController").GetComponent<GameManager>();
+        audioSource = gameManager.GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -199,7 +204,7 @@ public class Enemy : LivingEntity
         hitEffect.transform.position = hitPosition;
         hitEffect.transform.forward = hitNormal;
         hitEffect.Play();
-
+        audioSource.PlayOneShot(hitClip);
         base.OnDamage(damage, hitPosition, hitNormal);
     }
 
@@ -225,6 +230,7 @@ public class Enemy : LivingEntity
             return;
         }
 
+        audioSource.PlayOneShot(deathClip);
         Status = State.Death;
 
         base.Die();

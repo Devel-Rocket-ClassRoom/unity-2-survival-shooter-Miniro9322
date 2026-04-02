@@ -188,6 +188,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   Health: 0
+  OnDead:
+    m_PersistentCalls:
+      m_Calls: []
+  hitClip: {fileID: 8300000, guid: 1d4840678e677424b8921716c72397ea, type: 3}
+  deathClip: {fileID: 8300000, guid: 62366b8d2c37a49dca550841c741317f, type: 3}
+  gameManager: {fileID: 0}
   traceDistance: 30
   player:
     serializedVersion: 2

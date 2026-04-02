@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class PlayerHealth : LivingEntity
@@ -17,6 +18,12 @@ public class PlayerHealth : LivingEntity
     private Image hitImage;
     private float maxHealth;
 
+    [SerializeField]
+    private AudioClip hitClip;
+    [SerializeField]
+    private AudioClip deathClip;
+    private AudioSource audioSource;
+
     private float flashTime = 0.5f;
 
     private void Awake()
@@ -26,6 +33,7 @@ public class PlayerHealth : LivingEntity
         animator = GetComponent<Animator>();
         move = GetComponent<PlayerMovement>();
         shoot = GetComponent<PlayerShoot>();
+        audioSource = GetComponent<AudioSource>();
 
         move.enabled = true;
         shoot.enabled = true;
@@ -36,6 +44,7 @@ public class PlayerHealth : LivingEntity
     {
         base.OnDamage(damage, hitPosition, hitNormal);
         gameManager.UpdateHpBar(Health / maxHealth);
+        audioSource.PlayOneShot(hitClip);
         if(Health / maxHealth > 0)
         {
             StartCoroutine(CoHitFlash());
@@ -79,6 +88,7 @@ public class PlayerHealth : LivingEntity
         base.Die();
 
         animator.SetTrigger(Death);
+        audioSource.PlayOneShot(deathClip);
         move.enabled = false;
         shoot.enabled = false;
 
