@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput input;
     private float moveSpeed = 5f;
     private Animator animator;
+    [SerializeField]
+    private LayerMask floor;
 
     private void Awake()
     {
@@ -35,5 +37,8 @@ public class PlayerMovement : MonoBehaviour
 
         var horizontalDelta = input.MoveHorizontal * transform.right * moveSpeed * Time.deltaTime;
         playerRigidBody.MovePosition(playerRigidBody.position + horizontalDelta);
+
+        
+        playerRigidBody.transform.LookAt(input.MoustPosition);
     }
 }
