@@ -41,12 +41,6 @@ public class SoundManager : MonoBehaviour
 
     void Update()
     {
-        if(gameManager.isGameEnd == true)
-        {
-            Camera.main.GetComponent<AudioSource>().mute = true;
-            return;
-        }
-
         playerAudio.GetComponent<AudioSource>().mute = !soundToggle.isOn;
         gunAudio.GetComponent<AudioSource>().mute = !soundToggle.isOn;
         bearAudio.GetComponent<AudioSource>().mute = !soundToggle.isOn;
