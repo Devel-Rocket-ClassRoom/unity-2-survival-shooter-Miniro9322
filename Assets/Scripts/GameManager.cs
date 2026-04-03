@@ -63,7 +63,6 @@ public class GameManager : MonoBehaviour
     public void ResumeGame()
     {
         isPaused = false;
-        Debug.Log(isPaused);
         uiManager.GamePause(false);
     }
 }
