@@ -44,6 +44,7 @@ public class SoundManager : MonoBehaviour
         if(gameManager.isGameEnd == true)
         {
             Camera.main.GetComponent<AudioSource>().mute = true;
+            return;
         }
 
         playerAudio.GetComponent<AudioSource>().mute = !soundToggle.isOn;
